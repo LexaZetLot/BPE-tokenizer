@@ -35,6 +35,7 @@ void fillingListTextASCII(char* path, struct ListTextASCII* listTextASCII){
         }
         fclose(fp);
     }
+    freeListPath(listPath, len);
 }
 
 void printListTextASCII(struct ListTextASCII* listTextASCII){

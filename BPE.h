@@ -45,6 +45,8 @@ struct Node* fabricNode();
 uint64_t RotateRight(uint64_t value, int shift);
 uint64_t Mix(uint64_t a, uint64_t b);
 uint64_t SimpleCityHash64cons(const char *data, size_t len, size_t sizeHashTable);
+void insertNode(struct Node* nodeTable, char* str);
+void insertHashTable(struct HashTable* hashTable, size_t indexHashTable ,char* str);
 void fillingHashTable(struct ListTextASCII* listTextASCII, struct HashTable* hashTable, size_t sizeHashTable);
 void printHashTable(struct HashTable* hashTable, size_t sizeHashTable);
 #endif
