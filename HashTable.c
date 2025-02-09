@@ -136,19 +136,21 @@ void fillingHashTable(struct ListTextASCII* listTextASCII, struct HashTable* has
         } else if((listTextASCIIBuf->listNext != NULL) &&
                    ((!isalpha(listTextASCIIBuf->str[0]) &&
                    isalpha(listTextASCIIBuf->listNext->str[0])) || 
-                   (isalpha(listTextASCIIBuf->str[0]) &&
-                   isalpha(listTextASCIIBuf->listNext->str[0])))){
-            char* buf1 = (char*)malloc((strlen(listTextASCIIBuf->str) + 1) * sizeof(char));
-            char* buf2 = (char*)malloc((strlen(listTextASCIIBuf->listNext->str) + 1) * sizeof(char));
+                   (!isalpha(listTextASCIIBuf->str[0]) &&
+                   !isalpha(listTextASCIIBuf->listNext->str[0])))){
+            char* buf = (char*)malloc((strlen(listTextASCIIBuf->str) + 1) * sizeof(char));
             
-            strcpy(buf1, listTextASCIIBuf->str);
-            strcpy(buf2, listTextASCIIBuf->listNext->str);
+            strcpy(buf, listTextASCIIBuf->str);
             
-            uint64_t indexHashTable1 = SimpleCityHash64cons(buf1, strlen(buf1), sizeHashTable);
-            uint64_t indexHashTable2 = SimpleCityHash64cons(buf2, strlen(buf2), sizeHashTable);
+            uint64_t indexHashTable = SimpleCityHash64cons(buf, strlen(buf), sizeHashTable);
             
-            insertHashTable(hashTable, indexHashTable1, buf1);
-            insertHashTable(hashTable, indexHashTable2, buf2);        
+            insertHashTable(hashTable, indexHashTable, buf);
+        } else{
+            char* buf = (char*)malloc((strlen(listTextASCIIBuf->str) + 1) * sizeof(char));
+            strcpy(buf, listTextASCIIBuf->str);
+            uint64_t indexHashTable = SimpleCityHash64cons(buf, strlen(buf), sizeHashTable);
+            
+            insertHashTable(hashTable, indexHashTable, buf);
         }
         
     listTextASCIIBuf = listTextASCIIBuf->listNext;
