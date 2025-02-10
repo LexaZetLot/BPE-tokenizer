@@ -22,5 +22,7 @@ int main(int arhc, char** argv){
     
     fillingHashTable(listTextASCII, hashTable, SIZE_TABLE);    
     printHashTable(hashTable, SIZE_TABLE);
+    
+    printf("token -> %s\n", getMaxStrToHashTable(hashTable));
     return 0;
 }

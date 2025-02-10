@@ -25,7 +25,8 @@ struct Node{
 
 struct HashTable{
     struct Node **table;
-    int maxNode;
+    size_t maxNode;
+    char* maxStr;
 };
 
 
@@ -49,4 +50,5 @@ void insertNode(struct Node* nodeTable, char* str);
 void insertHashTable(struct HashTable* hashTable, size_t indexHashTable ,char* str);
 void fillingHashTable(struct ListTextASCII* listTextASCII, struct HashTable* hashTable, size_t sizeHashTable);
 void printHashTable(struct HashTable* hashTable, size_t sizeHashTable);
+char* getMaxStrToHashTable(struct HashTable* hashTable);
 #endif

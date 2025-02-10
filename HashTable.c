@@ -5,8 +5,9 @@
 struct HashTable* fabricHashTable(size_t sizeHashTable){
     struct HashTable* hashTable = (struct HashTable*)malloc(sizeof(struct HashTable));    
     hashTable->table = (struct Node**)malloc(sizeHashTable * sizeof(struct Node*));
-    hashTable->maxNode = INT_MIN;
-    
+    hashTable->maxNode = 0;
+    hashTable->maxStr = NULL;
+        
     for(int i = 0; i < sizeHashTable; i++){
         hashTable->table[i] = (struct Node*)malloc(sizeof(struct Node));
         hashTable->table[i]->key = NULL;
@@ -117,8 +118,12 @@ void fillingHashTable(struct ListTextASCII* listTextASCII, struct HashTable* has
                 hashTableBuf->table[indexHashTable]->count++;
             } else{
                 if(!(strcasecmp(hashTableBuf->table[indexHashTable]->key, buf))){
+                    hashTableBuf->table[indexHashTable]->count += 1;
+                    if(hashTableBuf->table[indexHashTable]->count > hashTableBuf->maxNode){
+                        hashTableBuf->maxStr = hashTableBuf->table[indexHashTable]->key;
+                        hashTableBuf->maxNode = hashTableBuf->table[indexHashTable]->count;
+                    }
                     free(buf);
-                    hashTableBuf->table[indexHashTable]->count++;
                 } else{
                     insertNode(hashTableBuf->table[indexHashTable], buf); 
                 }
@@ -162,11 +167,19 @@ void printHashTable(struct HashTable* hashTable, size_t sizeHashTable){
     struct Node* node;    
 
     for(int i = 0; i < sizeHashTable; i++){
+        printf("%d ", i);
         node = hashTableBuf->table[i];
         while(node != NULL){
-            printf("{%d key->%s count->%lu}", i, node->key, node->count);
+            printf("{key->%s count->%lu}", node->key, node->count);
             node = node->next;    
         }
         printf("\n");
     }
-}   
+    printf("maxNode -> %lu maxStr -> %s\n", hashTableBuf->maxNode, hashTableBuf->maxStr);
+}  
+
+char* getMaxStrToHashTable(struct HashTable* hashTable){
+    char* str = (char*)malloc((strlen(hashTable->maxStr) + 1) * sizeof(char));
+    strcpy(str, hashTable->maxStr);
+    return str;
+} 
