@@ -68,3 +68,11 @@ void initializationStr(char** str, int ch){
     (*str)[0] = (char)ch;
     (*str)[1] = '\0';
 }
+
+char* stringСoncantation(const char* const str1, const char* const str2){
+    char* strRes = (char*)malloc((strlen(str1) + strlen(str2) + 1) * sizeof(char));
+    strcpy(strRes, str1);
+    strcat(strRes, str2);
+ 
+    return strRes;
+}

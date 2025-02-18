@@ -1,0 +1,31 @@
+token 0 -> l
+token 1 -> ?
+token 2 -> .
+token 3 -> P
+token 4 -> 
+
+token 5 ->  
+token 6 -> www
+token 7 -> o
+token 8 -> i
+token 9 -> /
+token 10 -> 6
+token 11 -> 3
+token 12 -> com
+token 13 -> be
+token 14 -> _
+token 15 -> e
+token 16 -> https
+token 17 -> bergina
+token 18 -> amazon
+token 19 -> b
+token 20 -> n
+token 21 -> f
+token 22 -> &
+token 23 -> +
+token 24 -> =
+token 25 -> r
+token 26 -> k
+token 27 -> s
+token 28 -> :
+token 29 -> 8

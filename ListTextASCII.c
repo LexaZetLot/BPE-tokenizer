@@ -48,3 +48,40 @@ void printListTextASCII(struct ListTextASCII* listTextASCII){
         i++;
     }
 }
+
+void freeListNode(struct ListTextASCII* listTextASCII){
+    free(listTextASCII->str);
+    free(listTextASCII);
+}
+
+void mergeListTextASCII(struct ListTextASCII* listTextASCII, char* str){
+    struct ListTextASCII* listTextASCIIBuf = listTextASCII;
+    char* bufStr;    
+
+    while(listTextASCIIBuf->listNext != NULL){
+        bufStr = stringСoncantation(listTextASCIIBuf->str, listTextASCIIBuf->listNext->str);
+        
+        if(!strcasecmp(bufStr, str)){
+            struct ListTextASCII* buf = listTextASCIIBuf->listNext;
+            listTextASCIIBuf->listNext = listTextASCIIBuf->listNext->listNext;
+            freeListNode(buf);
+            free(listTextASCIIBuf->str);
+            listTextASCIIBuf->str = (char*)malloc((strlen(str) + 1) * sizeof(char));
+            strcpy(listTextASCIIBuf->str, str);
+        }
+        
+        free(bufStr);
+        listTextASCIIBuf = listTextASCIIBuf->listNext;
+    }
+}
+
+void freeListTextASCII(struct ListTextASCII* listTextASCII){
+    struct ListTextASCII* listTextASCIIBuf = listTextASCII;
+    struct ListTextASCII* buf;
+    while(listTextASCIIBuf != NULL){
+        buf = listTextASCIIBuf->listNext;
+        freeListNode(listTextASCIIBuf);
+        listTextASCIIBuf = buf;
+    }
+
+}
