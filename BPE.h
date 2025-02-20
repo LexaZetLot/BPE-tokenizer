@@ -66,6 +66,7 @@ void insertNode(struct Node* nodeTable, char* str, struct HashTable* hashTable);
 void fillingHashTable(struct ListTextASCII* listTextASCII, struct HashTable* hashTable, size_t sizeHashTable);
 void printHashTable(struct HashTable* hashTable, size_t sizeHashTable);
 char* getMaxStrToHashTable(struct HashTable* hashTable);
+void freeList(struct Node* node);
 void freeHashTable(struct HashTable* hashTable, size_t sizeHashTable);
 
 
@@ -73,9 +74,14 @@ struct Set* fabricSet(size_t sizeHashTable);
 void fillingSet(struct ListTextASCII* listTextASCII, struct Set* set, size_t sizeHashTable);
 void printSet(struct Set* set, size_t sizeHashTable);
 size_t getNumTokens(struct Set* set);
+void freeListSet(struct NodeSet* node);
 void freeSet(struct Set* set, size_t sizeHashTable);
 
 
 void parserSetToFile(struct Set* set, size_t sizeHashTable);
 void bytePairEncodingTokinazer(char* path, size_t sizeTable, size_t num);
+
+
+int utf8CharLength(unsigned char ch);
+char* readUtf8Char(FILE* file);
 #endif

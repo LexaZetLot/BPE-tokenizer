@@ -61,17 +61,18 @@ size_t getNumTokens(struct Set* set){
     return set->numTockens;
 }
 
-void freeSet(struct Set* set, size_t sizeHashTable){
-    for(int i = 0; i < sizeHashTable; i++){
-        struct NodeSet* nodeSet = set->table[i];
-        struct NodeSet* buf;
-        while(nodeSet != NULL){
-            buf = nodeSet->next;
-            free(nodeSet->str);
-            free(nodeSet);
-            nodeSet = buf;
-        }
+void freeListSet(struct NodeSet* node){
+    while(node){
+        struct NodeSet* temp = node;
+        node = node->next;
+        free(temp->str);
+        free(temp);
     }
+}
+
+void freeSet(struct Set* set, size_t sizeHashTable){
+    for(int i = 0; i < sizeHashTable; i++)
+        freeListSet(set->table[i]);
     free(set->table);
     free(set);
 }

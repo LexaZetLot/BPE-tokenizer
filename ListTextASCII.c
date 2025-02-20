@@ -14,24 +14,24 @@ void fillingListTextASCII(char* path, struct ListTextASCII* listTextASCII){
     size_t len = lenFilesPath(path);
     
     struct ListTextASCII* listTextASCIIBuf = listTextASCII;
-    int ch = 0;    
+    char* str = NULL;    
 
     for(int i = 0; i < len; i++){
-        fp = fopen(listPath[i], "r");
+        fp = fopen(listPath[i], "rb");
         if(fp == NULL)
             freeListPath(listPath, len);
         
-        if((i == 0) && ((ch = fgetc(fp)) != EOF))
-            initializationStr(&listTextASCIIBuf->str, ch);  
+        if((i == 0) && ((str = readUtf8Char(fp)) != NULL))
+            listTextASCIIBuf->str = str;  
         
 
-        while((ch = fgetc(fp)) != EOF){
+        while((str = readUtf8Char(fp)) != NULL){
             listTextASCIIBuf->listNext = fabricListTextASCII();
             listTextASCIIBuf->listNext->listNext = NULL;
             listTextASCIIBuf->listNext->str = NULL;
 
             listTextASCIIBuf = listTextASCIIBuf->listNext;
-            initializationStr(&listTextASCIIBuf->str, ch); 
+            listTextASCIIBuf->str = str; 
         }
         fclose(fp);
     }
@@ -64,8 +64,10 @@ void mergeListTextASCII(struct ListTextASCII* listTextASCII, char* str){
         if(!strcasecmp(bufStr, str)){
             struct ListTextASCII* buf = listTextASCIIBuf->listNext;
             listTextASCIIBuf->listNext = listTextASCIIBuf->listNext->listNext;
+
             freeListNode(buf);
             free(listTextASCIIBuf->str);
+
             listTextASCIIBuf->str = (char*)malloc((strlen(str) + 1) * sizeof(char));
             strcpy(listTextASCIIBuf->str, str);
         }

@@ -27,11 +27,18 @@ void bytePairEncodingTokinazer(char* path, size_t sizeTable, size_t num){
         set = fabricSet(sizeTable);
 
         fillingHashTable(listTextASCII, hashTable, sizeTable);
+        if(getMaxStrToHashTable(hashTable) == NULL){
+            fillingSet(listTextASCII, set, sizeTable);
+            freeHashTable(hashTable, sizeTable);
+            break;
+        }
         mergeListTextASCII(listTextASCII, getMaxStrToHashTable(hashTable));
          
         fillingSet(listTextASCII, set, sizeTable);
         numTokens = getNumTokens(set);
- 
+        
+        printf("tokens -> %lu\n", numTokens);
+        
         freeHashTable(hashTable, sizeTable);
         if(numTokens == num)
             break;

@@ -4,7 +4,7 @@ LDFLAGS =
 
 TARGET = appclication
 
-OBJFILES = main.o utils.o ListTextASCII.o HashTable.o HashFunction.o Set.o BPE.o
+OBJFILES = main.o utils.o ListTextASCII.o HashTable.o HashFunction.o Set.o BPE.o utf8Coder.o
 
 
 all: $(TARGET)

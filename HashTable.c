@@ -118,17 +118,21 @@ char* getMaxStrToHashTable(struct HashTable* hashTable){
     return str;
 }
 
-void freeHashTable(struct HashTable* hashTable, size_t sizeHashTable){
-    for(int i = 0; i < sizeHashTable; i++){
-        struct Node* node = hashTable->table[i];
-        struct Node* buf;
-        while(node != NULL){
-            buf = node->next;
-            free(node->key);
-            free(node);
-            node = buf;
-        }
+void freeList(struct Node* node){
+    while(node){
+        struct Node* temp = node;
+        node = node->next;
+        free(temp->key);
+        free(temp);
     }
+}
+
+void freeHashTable(struct HashTable* hashTable, size_t sizeHashTable){
+    if(!hashTable)
+        return;
+
+    for(int i = 0; i < sizeHashTable; i++)
+        freeList(hashTable->table[i]);
  
     free(hashTable->table);
     free(hashTable);
